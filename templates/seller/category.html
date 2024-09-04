@@ -1,0 +1,55 @@
+{% extends 'seller/dashboard.html' %}
+
+{% block bodyblock %}
+<h1 class="text-center">Manage your category:</h1>
+   
+<div class="container">
+ <div class="row">
+   <div class="col-12 d-flex justify-content-center">
+     <form method="POST" class="w-50">
+       
+       {% if  error_msg %}
+         
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+         {{error_msg}}
+         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+         </button>
+       </div>
+
+       {% endif %}
+
+
+       {% csrf_token %}
+       <div class="mb-3">
+         <label for="category" class="form-label">Category name:</label>
+         <input type="text" class="form-control" id="category" name="category">
+       </div>
+       <button class="btn bg-primary" style="color: aliceblue;">Add category</button>
+     </form>
+     </div>
+     <br><br><br>
+     <div align="center">
+     <table class="table table-hover table-boredred mt-3 w-50 text-center">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">NAME</th>
+          <th scope="col">ACTION</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for category in categories %}
+          <tr>
+            <th scope="row">{{category.id}}</th>
+            <td>{{category.name|title}}</td>
+            <td><a href="/seller/categories/delete/{{category.id}}">Delete</a></td>
+            <td><a href="/seller/categories/add_product/{{category.id}}" class="btn-btn-success">Add Product</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+     </table>
+   </div>
+ </div>
+</div>
+
+{% endblock bodyblock %}
